@@ -1,14 +1,44 @@
-\def\resVersion{GeneralPurpose} % [Software, Hardware, GeneralPurpose]
+\def\resVersion{Software} % [Software, Hardware, GeneralPurpose]
+\def\resPresetFormat{TwoPage} % [OnePage, TwoPage, Custom]
 
-\def\resShowUrls{1}
-\def\resShowTopBanner{1}
-\def\resShowTechnicalRange{1}
-\def\resShowWorkExperienceDetails{2} % [0-2]
-\def\resShowSkillsAndAbilities{1}
-\def\resShowHonorsAndAwards{1}
-\def\resShowHonorsAndAwardsDetails{2} % [0-2]
-\def\resShowProjects{1}
-\def\resShowProjectsDetails{1} % [0-1]
+\def\resPresetFormatOnePage{OnePage}
+\def\resPresetFormatTwoPage{TwoPage}
+\def\resPresetFormatCustom{Custom}
+
+\ifx\resPresetFormat\resPresetFormatCustom
+    \def\resShowUrls{1}
+    \def\resShowTopBanner{1}
+    \def\resShowTechnicalRange{1}
+    \def\resShowEducationDetails{1}
+    \def\resShowWorkExperienceDetails{2} % [0-2]
+    \def\resShowSkillsAndAbilities{1}
+    \def\resShowHonorsAndAwards{1}
+    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
+    \def\resShowProjects{1}
+    \def\resShowProjectsDetails{1} % [0-1]
+\fi\ifx\resPresetFormat\resPresetFormatOnePage
+    \def\resShowUrls{1}
+    \def\resShowTopBanner{1}
+    \def\resShowTechnicalRange{1}
+    \def\resShowEducationDetails{0}
+    \def\resShowWorkExperienceDetails{1} % [0-2]
+    \def\resShowSkillsAndAbilities{1}
+    \def\resShowHonorsAndAwards{1}
+    \def\resShowHonorsAndAwardsDetails{0} % [0-2]
+    \def\resShowProjects{0}
+    \def\resShowProjectsDetails{1} % [0-1]
+\fi\ifx\resPresetFormat\resPresetFormatTwoPage
+    \def\resShowUrls{1}
+    \def\resShowTopBanner{1}
+    \def\resShowTechnicalRange{1}
+    \def\resShowEducationDetails{1}
+    \def\resShowWorkExperienceDetails{2} % [0-2]
+    \def\resShowSkillsAndAbilities{1}
+    \def\resShowHonorsAndAwards{1}
+    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
+    \def\resShowProjects{1}
+    \def\resShowProjectsDetails{1} % [0-1]
+\fi
 
 %---------------------------------------------------------
 \def\resVersionOptionSoftware{Software}
@@ -109,7 +139,11 @@
     \if1\resShowTopBanner
         \par\vspace{3pt}
         \framebox[\textwidth][l]{
-            \textbf{Looking for software developer positions. Accept relocation within US/Canada.}
+            \ifx\resVersion\resVersionOptionSoftware
+                \textbf{Looking for a software developer position from 6/2021. Accept relocation within US/Canada.}
+            \else
+                \textbf{Looking for a full-time position starting 6/2021. Accept relocation within US/Canada.}
+            \fi
         }
         \vspace{-13pt}
     \fi
@@ -137,13 +171,26 @@
 \fi
 
 %-----------EDUCATION-----------------
+\newcommand\resumeEducationDetailsList[1]{
+    \if1\resShowEducationDetails
+        \begin{itemize}[leftmargin=*,labelindent=0.5em,label={-},topsep=0.3ex,itemsep=0ex,partopsep=0pt,parsep=0pt]
+            \small{#1}
+        \end{itemize}\vspace{-1ex}
+    \fi
+}
 \section{Education}
 \resumeSubHeadingListStart
     \resumeCompanyLine{New York University}{New York, USA}
     \resumePositionLine{M.S. in Electrical and Computer Engineering; CGPA: 4.0/4.0}{9/2019 -- 5/2021}
-    
+    \resumeEducationDetailsList{
+        \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating System, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded System}
+    }
+
     \resumeCompanyLine{Fudan University}{Shanghai, China}
     \resumePositionLine{B.E. in Software Engineering}{9/2013 -- 7/2017}
+    \resumeEducationDetailsList{
+        \resumeSubItem{\textbf{Relavant Courses: }Intro to Web Applications, Compilers, Computer Graphics, Software Engineering, Project Management, Data Structures and Algorithms, Fundamental Multimedia Technologies}
+    }
 \resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------------
@@ -165,13 +212,13 @@
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\it{alexsax/midlevel-reps}} with profiler.}
                 \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
-                
+
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
                 \fi
             }
         \resumeItemListEnd
-        
+
         \resumePositionLine{Teaching Assistant}{1/2020 -- 5/2020}
         \resumeItemListStart
             \resumeItem{Internet Architecture and Protocols}{Taught theories and experiments of modern internet.}
@@ -179,7 +226,7 @@
                 \resumeSubItem{Topics include TCP/IP, bridge STP, BGP/OSPF routing, NAT, multicast, etc.}
             }
         \resumeItemListEnd
-      
+
     \resumeCompanyLine{AST Video Technology LLC}{Shaanxi, China}
         \resumePositionLine{Independent Researcher and Developer}{7/2018 -- 8/2019}
         \resumeItemListStart
@@ -190,24 +237,24 @@
             }
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Invented a novel sensor fusion algorithm to achieve smooth and precise tracking ($\pm$0.1\degree\ rotation, $\pm$2mm position).}
-                
+
                 \ifx\resVersion\resVersionOptionSoftware
                     \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
                     \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
-                
+
                     \ifnum\resShowWorkExperienceDetails>1
                     \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
                     \fi
-                    
+
                 \fi
-                
+
                 \ifx\resVersion\resVersionOptionGeneralPurpose
                     \resumeSubItem{Implemented DSP logic on FPGA with AXI-Stream as I/O protocol.}
-                    
+
                     \ifnum\resShowWorkExperienceDetails>1
                         \resumeSubItem{Designed an array of photoelectric sensors to capture laser signals.}
                     \fi
-                    
+
                     \resumeSubItem{Created a 4-layer PCB with Altium Designer to integrate FPGA, STM32, power module and Ethernet.}
                 \fi
             }
@@ -221,18 +268,18 @@
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Designed a multi-threaded framework using C\raisebox{0.2ex}{++}14, achieved 97\% CPU efficiency boost than previous prototype.}
                 \resumeSubItem{Implemented a pipelined data flow, allowing modules to run concurrently and don't need to worry about thread safety.}
-                
+
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Enabled Continuous Integration for automatic testing, and cross-platform support using CMake.}
                 \resumeSubItem{Provided customers technical support for integrating this project into their applications.}
                 \fi
             }
-            
+
             \resumeItem{VM-like System Based on Docker}
             {Sharing massive host CPU/RAM/GPU resources effectively.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Granted containers NET\_ADMIN privilege and ran DHCPcd inside to directly expose them on company LAN.}
-                
+
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Set up SSHd and X11 environment for containers, allowing X-Forwarding.}
                 \fi
@@ -241,11 +288,11 @@
             {Developing a Windows NDIS driver for a pre-silicon SoC.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Compared features of other commercial drivers, helped customers reduce development cost by \$300K.}
-                
+
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Proposed, negotiated and settled the High Level Design document with customers.}
                 \fi
-                
+
                 \resumeSubItem{Involved in developing a prototype NDIS driver.}
             }
         \resumeItemListEnd
@@ -260,7 +307,7 @@
                 }
             \resumeItemListEnd
         \fi
-        
+
         \resumePositionLine{Research Assistant}{4/2016 -- 6/2016}
         \resumeItemListStart
             \resumeItem{Robust Real-Time Human Perception with Depth Camera}{Paper published on ECAI 2016: 304-310}
@@ -274,7 +321,7 @@
 %--------SKILLS------------
 \if1\resShowSkillsAndAbilities
     \newcommand{\resumeSkillItem}[2]{\item{\textbf{#1}{: #2}}}
-    
+
     \ifx\resVersion\resVersionOptionSoftware
         \section{Software Skills \& Abilities}
     \else
@@ -282,7 +329,7 @@
     \fi
         \resumeSubHeadingListStart
             \setlength\topsep{0ex}\setlength\parskip{0ex}\setlength\itemsep{0.2ex}
-            
+
             \iffalse
                 \vspace{-0.8ex}\item{
                     \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
@@ -301,7 +348,7 @@
                     \resumeSkillItem{PCB Design}{Altium Designer}
                 \fi
             \fi
-            
+
             \resumeSkillItem{Networking}{OpenWRT and Linux-based policy routing, iptables/nftables, bridge, VLAN, NAT, etc}
         \vspace{-1ex}
         \resumeSubHeadingListEnd
@@ -345,32 +392,34 @@
             \resumeSubItem{Set up the airborne computer system and its LTE network telemetry link.}
             \resumeSubItem{Developed the 3D position tracking module.}
         }
-        
+
         \resumeAwardItem{1\textsuperscript{st} Award (1.8\%)}{National Olympiad in Informatics in Provinces}{10/2012}
         {A contest that is similar to ACM/ICPC but only one person in each team.}{}
-        
+
         \resumeAwardItem{2\textsuperscript{nd} Award (2.3\%)}{National Undergraduate Math Contest in Modelling}{5/2015}
         {Design a math model to address a given real world problem.}{
             \resumeSubItem{Involved in creating and implementing the math model for the given problem.}
         }
-        
+
         \resumeAwardItem{3\textsuperscript{rd} Prize}{National Undergraduate Electronic Design Contest (Analog Circuits)}{9/2016}
         {Design a digital/analog mixed system to generate, process, and analyze signal.}{
             \resumeSubItem{Developed analog signal generator core on FPGA using Direct Digital Synthesis.}
             \resumeSubItem{Implemented high speed LVDS communication with DAC chip.}
         }
-        
-        \resumeAwardItem{Honorable Mention}{Shanghai Undergraduate Electronic Design Contest}{8/2016}
-        {Design an UAV that can automatically fly and land on each given landmark without GPS.}{
-            \resumeSubItem{Implemented an optical flow positioning system with OpenCV for indoor navigation.}
-        }
-        
-        \resumeAwardItem{Successful Participant}{COMAP Mathematical Contest in Modeling}{2/2016}
-        {Design a math model to determine if resolving the space debris problem is economically attractive.}{
-            \resumeSubItem{Acquired and processed the data for the problem from public internet.}
-            \resumeSubItem{Involved in designing the math model.}
-        }
-        
+
+        \iffalse
+            \resumeAwardItem{Honorable Mention}{Shanghai Undergraduate Electronic Design Contest}{8/2016}
+            {Design an UAV that can automatically fly and land on each given landmark without GPS.}{
+                \resumeSubItem{Implemented an optical flow positioning system with OpenCV for indoor navigation.}
+            }
+
+            \resumeAwardItem{Successful Participant}{COMAP Mathematical Contest in Modeling}{2/2016}
+            {Design a math model to determine if resolving the space debris problem is economically attractive.}{
+                \resumeSubItem{Acquired and processed the data for the problem from public internet.}
+                \resumeSubItem{Involved in designing the math model.}
+            }
+        \fi
+
         \resumeAwardItem{Best Volunteer}{Fudan Youth Volunteers Association \& Fudan PCService Volunteering Group}{5/2017}
         {Resolve computer problems with professional knowledge for the university community.}{
             \resumeSubItem{Resolved over 1000 service requests.}
@@ -387,7 +436,7 @@
     \item{
         \ifnum\resShowProjectsDetails>0
             \vspace{0.5ex}
-            \textbf{#2} \hfill \textit{#1}\\
+            \textbf{#2} \hfill {#1}\\
             \small{#4} \hfill \small{#3}\\
             \vspace{-0.6ex}
         \else
@@ -404,28 +453,31 @@
     \resumeSubHeadingListStart
         \resumeProjectsItem{Finished, Active}{Flexible Resume}{7/2020}
         {A \LaTeX-based flexible resume with configurable options. [\href{https://github.com/ly4096x/Flexible_Resume}{\underline{Link}}]}{}
-        
+
+        \resumeProjectsItem{In-Progress}{Archive and Visualization of Daily AVALON Apartment Prices}{6/2020 -- Now}
+        {Capture data from website using Selenium and store with SQLite. Visualize with HTML/CSS.}{}
+
         \resumeProjectsItem{Finished, End-of-Life}{Automatic Network Configuration for \textit{High Speed Network} Labs}{4/2020}
         {Manage a group of containers nice and tidy with docker-compose. [\href{https://github.com/ly4096x/ECE6383_HSN_Lab4_Network}{\underline{Link}}]}{}
-        
+
         \resumeProjectsItem{Finished, Active}{KVM Virtual Machines with PCIe-Passthrough}{4/2020}
         {Enabling virtual machines to directly interact with PCIe devices, like GPU or NIC.}{}
-        
+
         \resumeProjectsItem{Finished, Active}{SMTP to Telegram Forwarder}{3/2020}
         {Forwarding emails to Telegram using bot API. Runs on OpenWRT with UPX. [\href{https://github.com/ly4096x/smtp_to_telegram}{\underline{Link}}]}{}
-        
+
         \resumeProjectsItem{Finished, End-of-Life}{Autonomous WiFi Tracing Robot Car with PID-Controlled Motors}{12/2019}
         {A self-driving car with obstacle avoidance and constant moving speed. [\href{https://github.com/ly4096x/RTES_STM32F4}{\underline{Link}}]}{}
-        
+
         \resumeProjectsItem{Finished, End-of-Life}{DIY UAV Based on ArduPilot}{10/2014}
         {Designed, assembled and tested several UAVs, all by myself alone from scratch.}{}
-        
+
         \resumeProjectsItem{Finished, Active}{Software Router and Server with Linux}{10/2013}
         {Full-fledged router system with advanced policy routing and complex network structures.}{}
-        
+
         \resumeProjectsItem{Finished}{IoT CNC Machine with Laser Head}{11/2017 -- 2/2018}
         {Controlled with GRBL. Added an ESP8266 module to make it IoT. 90{\textmu}m precision when carving PCB.}{}
-        
+
         \resumeProjectsItem{Finished, Active}{Multi-WiFi to Mitigate Security Risk from IoT Devices}{10/2019}
         {Create multiple WiFi from a router to restrict access to main network from a single IoT device.}{}
     \resumeSubHeadingListEnd
