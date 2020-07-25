@@ -1,22 +1,16 @@
-\def\resVersion{Software} % [Software, Hardware, GeneralPurpose]
-\def\resPresetFormat{TwoPage} % [OnePage, TwoPage, Custom]
-
 \def\resPresetFormatOnePage{OnePage}
 \def\resPresetFormatTwoPage{TwoPage}
 \def\resPresetFormatCustom{Custom}
 
-\ifx\resPresetFormat\resPresetFormatCustom
-    \def\resShowUrls{1}
-    \def\resShowTopBanner{1}
-    \def\resShowTechnicalRange{1}
-    \def\resShowEducationDetails{1}
-    \def\resShowWorkExperienceDetails{2} % [0-2]
-    \def\resShowSkillsAndAbilities{1}
-    \def\resShowHonorsAndAwards{1}
-    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
-    \def\resShowProjects{1}
-    \def\resShowProjectsDetails{1} % [0-1]
-\fi\ifx\resPresetFormat\resPresetFormatOnePage
+\def\resVersionOptionSoftware{Software}
+\def\resVersionOptionHardware{Hardware}
+\def\resVersionOptionGeneralPurpose{GeneralPurpose}
+
+\ifdefined\resVersion\else
+    \input{Config.tex}
+\fi
+
+\ifx\resPresetFormat\resPresetFormatOnePage
     \def\resShowUrls{1}
     \def\resShowTopBanner{1}
     \def\resShowTechnicalRange{1}
@@ -41,10 +35,6 @@
 \fi
 
 %---------------------------------------------------------
-\def\resVersionOptionSoftware{Software}
-\def\resVersionOptionHardware{Hardware}
-\def\resVersionOptionGeneralPurpose{GeneralPurpose}
-
 \documentclass[letterpaper,11pt]{article}
 %\documentclass[letter, 10pt]{article}
 
