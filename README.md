@@ -4,6 +4,26 @@ A flexible resume with configurable options. The output can be easily changed wi
 
 This resume is based on [https://github.com/sb2nov/resume](https://github.com/sb2nov/resume).
 
+# Building PDF
+
+To build docker image:
+
+```
+docker build -t latex .
+```
+
+To build PDFs with default configurations:
+
+```
+docker run --rm -i --user=`id -u`:`id -g` -v "$PWD":/data latex bash ./GenerateAll.sh
+```
+
+To build a PDF with `Config.tex`:
+
+```
+docker run --rm -i --user=`id -u`:`id -g` -v "$PWD":/data latex bash -c 'mkdir -p output; pdflatex -output-directory=output ResumeContent.tex'
+```
+
 # Option Switches
 
 Option switches are in the beginning of the resume source file.
