@@ -42,7 +42,7 @@
 \usepackage[empty]{fullpage}
 \usepackage{titlesec}
 \usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{verbatim}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
@@ -50,22 +50,25 @@
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \usepackage{graphicx}
-\usepackage{gensymb}
+\usepackage{textcomp,gensymb}
 \usepackage{textgreek}
+\usepackage{lastpage}
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
-\fancyfoot{}
+\setlength\footskip{1.1cm}
+\fancyfoot[R]{\small{Page\ \thepage\ of \pageref{LastPage}}\hspace{-10.5em}}
+\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with \href{https://github.com/ly4096x/Flexible_Resume}{\underline{Flexible Resume}} VERSION=\resVersion\ PRESET=\resPresetFormat}}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
 % Adjust margins
 \usepackage[margin=0.5in]{geometry}
+%\usepackage{showframe}
 
 \urlstyle{same}
 
 \raggedbottom
-%\raggedright
 \setlength{\tabcolsep}{0in}
 
 % Sections formatting
