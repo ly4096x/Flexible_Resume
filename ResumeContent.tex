@@ -36,7 +36,6 @@
 
 %---------------------------------------------------------
 \documentclass[letterpaper,11pt]{article}
-%\documentclass[letter, 10pt]{article}
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -53,12 +52,13 @@
 \usepackage{textcomp,gensymb}
 \usepackage{textgreek}
 \usepackage{lastpage}
+\usepackage{url}
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
 \setlength\footskip{1.1cm}
 \fancyfoot[R]{\small{Page\ \thepage\ of \pageref{LastPage}}\hspace{-10.5em}}
-\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with \href{https://github.com/ly4096x/Flexible_Resume}{\underline{Flexible Resume}} VERSION=\resVersion\ PRESET=\resPresetFormat}}}
+\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with \href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Flexible Resume}} VERSION=\resVersion\ PRESET=\resPresetFormat}}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
@@ -123,9 +123,9 @@
 {
     \raggedright
     \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
-        \textbf{{\Large Yang Liu}} & Email: \href{mailto:50459973+ly4096x@users.noreply.github.com}{50459973+ly4096x@users.noreply.github.com}\\
+        \textbf{{\Large Yang Liu}} & Email: \href{mailto:\resMyEmail}{\resMyEmail}\\
         \if1\resShowUrls
-            \href{https://www.linkedin.com/in/ly4096x/}{https://www.linkedin.com/in/ly4096x/} & \href{https://github.com/ly4096x}{https://github.com/ly4096x} \\
+            \url{https://www.linkedin.com/in/ly4096x/} & \url{https://github.com/ly4096x} \\
         \fi
     \end{tabular*}
 
@@ -160,7 +160,7 @@
             \vspace{-3pt}
             \includegraphics[width=\textwidth, trim={0 0 0 8pt},clip]{CapabilitiesRange.jpg}
     \fi
-    \vspace{-5ex}
+    \vspace{-4.5ex}
 \fi
 
 %-----------EDUCATION-----------------
@@ -203,7 +203,7 @@
         \resumeItemListStart
             \resumeItem{Robot Car Auto Navigation}{Using reinforcement learning to navigate with input data from various sensors.}
             \resumeWorkExperienceDetailsList{
-                \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\it{alexsax/midlevel-reps}} with profiler.}
+                \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\underline{alexsax/midlevel-reps}} with profiler.}
                 \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
 
                 \ifnum\resShowWorkExperienceDetails>1
@@ -445,22 +445,22 @@
 \section{Selected Projects}{
     \resumeSubHeadingListStart
         \resumeProjectsItem{Finished, Active}{Flexible Resume}{7/2020}
-        {A \LaTeX-based flexible resume with configurable options. [\href{https://github.com/ly4096x/Flexible_Resume}{\underline{Link}}]}{}
+        {A \LaTeX-based flexible resume with configurable options. [\href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Link}}]}{}
 
         \resumeProjectsItem{In-Progress}{Archive and Visualization of Daily AVALON Apartment Prices}{6/2020 -- Now}
         {Capture data from website using Selenium and store with SQLite. Visualize with HTML/CSS.}{}
 
         \resumeProjectsItem{Finished, End-of-Life}{Automatic Network Configuration for \textit{High Speed Network} Labs}{4/2020}
-        {Manage a group of containers nice and tidy with docker-compose. [\href{https://github.com/ly4096x/ECE6383_HSN_Lab4_Network}{\underline{Link}}]}{}
+        {Manage a group of containers nice and tidy with docker-compose. [\href{https://github.com/ly4096x/ECE6383\_HSN\_Lab4\_Network}{\underline{Link}}]}{}
 
         \resumeProjectsItem{Finished, Active}{KVM Virtual Machines with PCIe-Passthrough}{4/2020}
         {Enabling virtual machines to directly interact with PCIe devices, like GPU or NIC.}{}
 
         \resumeProjectsItem{Finished, Active}{SMTP to Telegram Forwarder}{3/2020}
-        {Forwarding emails to Telegram using bot API. Runs on OpenWRT with UPX. [\href{https://github.com/ly4096x/smtp_to_telegram}{\underline{Link}}]}{}
+        {Forwarding emails to Telegram using bot API. Runs on OpenWRT with UPX. [\href{https://github.com/ly4096x/smtp\_to\_telegram}{\underline{Link}}]}{}
 
         \resumeProjectsItem{Finished, End-of-Life}{Autonomous WiFi Tracing Robot Car with PID-Controlled Motors}{12/2019}
-        {A self-driving car with obstacle avoidance and constant moving speed. [\href{https://github.com/ly4096x/RTES_STM32F4}{\underline{Link}}]}{}
+        {A self-driving car with obstacle avoidance and constant moving speed. [\href{https://github.com/ly4096x/RTES\_STM32F4}{\underline{Link}}]}{}
 
         \resumeProjectsItem{Finished, Active}{Multi-WiFi to Mitigate Security Risk from IoT Devices}{10/2019}
         {Create multiple WiFi from a router to restrict access to main network from a single IoT device.}{}
