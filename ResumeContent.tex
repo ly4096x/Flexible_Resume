@@ -14,8 +14,12 @@
     \def\resShowUrls{1}
     \def\resShowPersonalContact{1}
     \def\resShowTopBanner{1}
-    \def\resShowTechnicalRange{1}
-    \def\resShowEducationDetails{0}
+    \def\resShowTechnicalRange{0}
+    \ifx\resVersion\resVersionOptionGeneralPurpose
+        \def\resShowEducationDetails{0}
+    \else
+        \def\resShowEducationDetails{1}
+    \fi
     \def\resShowWorkExperienceDetails{2} % [0-2]
     \def\resShowSkillsAndAbilities{1}
     \def\resShowHonorsAndAwards{0}
@@ -26,7 +30,7 @@
     \def\resShowUrls{1}
     \def\resShowPersonalContact{1}
     \def\resShowTopBanner{1}
-    \def\resShowTechnicalRange{1}
+    \def\resShowTechnicalRange{0}
     \def\resShowEducationDetails{1}
     \def\resShowWorkExperienceDetails{2} % [0-2]
     \def\resShowSkillsAndAbilities{1}
@@ -233,14 +237,11 @@
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Invented a novel sensor fusion algorithm to achieve smooth and precise tracking ($\pm$0.1\degree\ rotation, $\pm$2mm position).}
 
-                \ifx\resVersion\resVersionOptionSoftware
-                    \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
-                    \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
+                \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
+                \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
 
-                    \ifnum\resShowWorkExperienceDetails>1
-                    \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
-                    \fi
-
+                \ifnum\resShowWorkExperienceDetails>1
+                \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
                 \fi
 
                 \ifx\resVersion\resVersionOptionGeneralPurpose
@@ -280,7 +281,7 @@
                 \fi
             }
             \resumeItem{Ethernet Driver Development}
-            {Developing a Windows NDIS driver for a pre-silicon SoC.}
+            {Developing a Windows kernel-mode NDIS driver for a pre-silicon SoC.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Compared features of other commercial drivers, helped customers reduce development cost by \$300K.}
 
@@ -308,7 +309,7 @@
             \resumeItem{Robust Real-Time Human Perception with Depth Camera}{Paper published on ECAI 2016: 304-310}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Involved in developing a novel algorithm for real-time human detection with RGB-D camera.}
-                \resumeSubItem{Employed Kinect API to develop NUI data interface for direct PCL-compatible data capture.}
+                \resumeSubItem{Employed Kinect API and OpenCV to develop NUI data interface for direct PCL-compatible data capture.}
             }
         \resumeItemListEnd
 \resumeSubHeadingListEnd
