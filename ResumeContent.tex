@@ -4,7 +4,7 @@
 
 \def\resVersionOptionSoftware{Software}
 \def\resVersionOptionHardware{Hardware}
-\def\resVersionOptionGeneralPurpose{GeneralPurpose}
+\def\resVersionOptionSoftAndHardware{SoftAndHardware}
 
 \ifdefined\resVersion\else
     \input{Config.tex}
@@ -15,7 +15,7 @@
     \def\resShowPersonalContact{1}
     \def\resShowTopBanner{1}
     \def\resShowTechnicalRange{0}
-    \ifx\resVersion\resVersionOptionGeneralPurpose
+    \ifx\resVersion\resVersionOptionSoftAndHardware
         \def\resShowEducationDetails{0}
     \else
         \def\resShowEducationDetails{1}
@@ -158,7 +158,7 @@
         \section{Technical Range (Hardware Only)}
             \includegraphics[width=\textwidth, trim={150 140 150 0},clip]{CapabilitiesRange.jpg}
     \fi
-    \ifx\resVersion\resVersionOptionGeneralPurpose
+    \ifx\resVersion\resVersionOptionSoftAndHardware
         \section{Technical Range}
             \includegraphics[width=\textwidth, trim={150 140 150 0},clip]{CapabilitiesRange.jpg}
     \fi
@@ -240,7 +240,7 @@
                 \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
                 \fi
 
-                \ifx\resVersion\resVersionOptionGeneralPurpose
+                \ifx\resVersion\resVersionOptionSoftAndHardware
                     \resumeSubItem{Implemented DSP logic on FPGA with AXI-Stream as I/O protocol.}
 
                     \ifnum\resShowWorkExperienceDetails>1
@@ -335,7 +335,7 @@
                     % reference date: 2020/8
                     \resumeSkillItem{Languages}{C (7yr) C\raisebox{0.2ex}{++} (10yr) Rust (\textless1yr) Python3 (6yr) JavaScript (6yr)}
                 \fi
-                \ifx\resVersion\resVersionOptionGeneralPurpose
+                \ifx\resVersion\resVersionOptionSoftAndHardware
                     % reference date: 2020/8
                     \resumeSkillItem{Languages}{C (7yr) C\raisebox{0.2ex}{++} (10yr) Rust (\textless1yr) Python3 (6yr) JavaScript (6yr) Verilog (5yr) SystemVerilog (4yr)}
                     \resumeSkillItem{Hardware}{Xilinx ARTIX-7/ZYNQ-7000, STM32F1/F4/F7, ESP8266, Arduino, Raspberry Pi}
