@@ -20,7 +20,7 @@
     \else
         \def\resShowEducationDetails{1}
     \fi
-    \def\resShowWorkExperienceDetails{2} % [0-2]
+    \def\resShowWorkExperienceDetails{1} % [0-2]
     \def\resShowSkillsAndAbilities{1}
     \def\resShowHonorsAndAwards{0}
     \def\resShowHonorsAndAwardsDetails{0} % [0-2]
@@ -178,13 +178,13 @@
     \resumeCompanyLine{New York University}{New York, USA}
     \resumePositionLine{M.S. in Electrical and Computer Engineering; CGPA: 4.0/4.0}{9/2019 -- 5/2021}
     \resumeEducationDetailsList{
-        \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating System, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded System}
+        \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating Systems, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded System}
     }
 
     \resumeCompanyLine{Fudan University}{Shanghai, China}
     \resumePositionLine{B.E. in Software Engineering}{9/2013 -- 7/2017}
     \resumeEducationDetailsList{
-        \resumeSubItem{\textbf{Relavant Courses: }Intro to Web Applications, Compilers, Computer Graphics, Software Engineering, Project Management, Data Structures and Algorithms, Fundamental Multimedia Technologies}
+        \resumeSubItem{\textbf{Relavant Courses: }Intro to Web Applications, Compilers, Computer Graphics, Software Engineering, Project Management, Data Structures and Algorithms, Fundamental Multimedia Algorithms}
     }
 \resumeSubHeadingListEnd
 
@@ -201,24 +201,40 @@
 \section{Experience}
 \resumeSubHeadingListStart
     \resumeCompanyLine{New York University}{New York, USA}
-        \resumePositionLine{Research Assistant}{1/2020 -- 5/2020}
+        \resumePositionLine{Research Assistant}{1/2020 -- 5/2020, 8/2020 -- Now}
         \resumeItemListStart
             \resumeItem{Robot Car Auto Navigation}{Using reinforcement learning to navigate with input data from various sensors.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\underline{alexsax/midlevel-reps}} with profiler.}
                 \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
 
+                \ifx\resVersion\resVersionOptionSoftware
+                    \ifnum\resShowWorkExperienceDetails>1
+                        \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
+                    \fi
+                \fi
+            }
+            
+            \resumeItem{Anomoly over Network}{Detecting malicious hardware based on side-channel features.}
+            \resumeWorkExperienceDetailsList{
+                \resumeSubItem{Transplanted FreeRTOS to a customized CPU architecture under GEM5 simulator.}
+                \resumeSubItem{Modified firmware of powering module to achieve 200x higher power sampling rate over WiFi.}
+                
                 \ifnum\resShowWorkExperienceDetails>1
-                \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
+                \resumeSubItem{Set up Raspberry Pi as a WiFi router, along with a programmable switch to create a private network for testing.}
                 \fi
             }
         \resumeItemListEnd
 
-        \resumePositionLine{Teaching Assistant}{1/2020 -- 5/2020}
+        \resumePositionLine{Teaching Assistant}{1/2020 -- 5/2020, 9/2020 -- Now}
         \resumeItemListStart
             \resumeItem{Internet Architecture and Protocols}{Teaching theories and experiments of modern internet.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Topics include TCP/IP, bridge STP, BGP/OSPF routing, NAT, multicast, etc.}
+            }
+            \resumeItem{Operating Systems}{Help students understand OS internals and do homeworks.}
+            \resumeWorkExperienceDetailsList{
+                \resumeSubItem{Topics include scheduling, memory management, IPC, I/O control, etc.}
             }
         \resumeItemListEnd
 
@@ -232,13 +248,13 @@
             }
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Invented a novel sensor fusion algorithm to achieve smooth and precise tracking ($\pm$0.1\degree\ rotation, $\pm$2mm position).}
-
                 \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
-                \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
-
-                \ifnum\resShowWorkExperienceDetails>1
-                \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
+                
+                \ifx\resVersion\resVersionOptionSoftware
+                    \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
                 \fi
+                
+                \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
 
                 \ifx\resVersion\resVersionOptionSoftAndHardware
                     \resumeSubItem{Implemented DSP logic on FPGA with AXI-Stream as I/O protocol.}
@@ -263,7 +279,10 @@
 
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Enabled Continuous Integration for automatic testing, and cross-platform support using CMake.}
-                \resumeSubItem{Provided customers technical support for integrating this project into their applications.}
+                
+                    \ifx\resVersion\resVersionOptionSoftware
+                        \resumeSubItem{Provided customers technical support for integrating this project into their applications.}
+                    \fi
                 \fi
             }
 
