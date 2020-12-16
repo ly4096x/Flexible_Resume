@@ -1,5 +1,6 @@
 \def\resPresetFormatOnePage{OnePage}
 \def\resPresetFormatTwoPage{TwoPage}
+\def\resPresetFormatNotForWork{NotForWork}
 \def\resPresetFormatCustom{Custom}
 
 \def\resVersionOptionSoftware{Software}
@@ -8,6 +9,14 @@
 
 \ifdefined\resVersion\else
     \input{Config.tex}
+\fi
+
+\ifx\resVersion\resVersionOptionSoftware
+    \def\resShowSoftware{1}
+    \def\resShowHardware{0}
+\fi\ifx\resVersion\resVersionOptionSoftAndHardware
+    \def\resShowSoftware{1}
+    \def\resShowHardware{1}
 \fi
 
 \ifx\resPresetFormat\resPresetFormatOnePage
@@ -26,6 +35,7 @@
     \def\resShowHonorsAndAwardsDetails{0} % [0-2]
     \def\resShowProjects{0}
     \def\resShowProjectsDetails{1} % [0-1]
+    \def\resCropDueToPageLimit{0}
 \fi\ifx\resPresetFormat\resPresetFormatTwoPage
     \def\resShowUrls{1}
     \def\resShowPersonalContact{1}
@@ -38,6 +48,24 @@
     \def\resShowHonorsAndAwardsDetails{2} % [0-2]
     \def\resShowProjects{1}
     \def\resShowProjectsDetails{1} % [0-1]
+    \ifx\resVersion\resVersionOptionSoftAndHardware
+        \def\resCropDueToPageLimit{1}
+    \else
+        \def\resCropDueToPageLimit{0}
+    \fi
+\fi\ifx\resPresetFormat\resPresetFormatNotForWork
+    \def\resShowUrls{1}
+    \def\resShowPersonalContact{0}
+    \def\resShowTopBanner{0}
+    \def\resShowTechnicalRange{0}
+    \def\resShowEducationDetails{1}
+    \def\resShowWorkExperienceDetails{2} % [0-2]
+    \def\resShowSkillsAndAbilities{1}
+    \def\resShowHonorsAndAwards{1}
+    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
+    \def\resShowProjects{1}
+    \def\resShowProjectsDetails{1} % [0-1]
+    \def\resCropDueToPageLimit{0}
 \fi
 
 %---------------------------------------------------------
@@ -208,18 +236,18 @@
                 \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\underline{alexsax/midlevel-reps}} with profiler.}
                 \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
 
-                \ifx\resVersion\resVersionOptionSoftware
+                \ifnum\resShowSoftware=1
                     \ifnum\resShowWorkExperienceDetails>1
                         \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
                     \fi
                 \fi
             }
-            
+
             \resumeItem{Anomoly over Network}{Detecting malicious hardware based on side-channel features.}
             \resumeWorkExperienceDetailsList{
-                \resumeSubItem{Transplanted FreeRTOS to a customized CPU architecture under GEM5 simulator.}
+                \resumeSubItem{[WIP] Transplant FreeRTOS to a customized CPU architecture under GEM5 simulator.}
                 \resumeSubItem{Modified firmware of powering module to achieve 200x higher power sampling rate over WiFi.}
-                
+
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Set up Raspberry Pi as a WiFi router, along with a programmable switch to create a private network for testing.}
                 \fi
@@ -242,21 +270,21 @@
         \resumePositionLine{Independent Researcher and Developer}{7/2018 -- 8/2019}
         \resumeItemListStart
             \resumeItem{7-DOF Camera Tracking System}{Full freedom camera tracking solution for TV studios. Patent pending.
-                \iffalse\ifx\resVersion\resVersionOptionSoftware\ifnum\resShowWorkExperienceDetails>0
+                \iffalse\ifnum\resShowSoftware=1\ifnum\resShowWorkExperienceDetails>0
                     Hardware work is not shown in this resume.
                 \fi\fi\fi
             }
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Invented a novel sensor fusion algorithm to achieve smooth and precise tracking ($\pm$0.1\degree\ rotation, $\pm$2mm position).}
                 \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
-                
-                \ifx\resVersion\resVersionOptionSoftware
+
+                \ifnum\resShowSoftware=1
                     \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
                 \fi
-                
+
                 \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
 
-                \ifx\resVersion\resVersionOptionSoftAndHardware
+                \ifnum\resShowHardware=1
                     \resumeSubItem{Implemented DSP logic on FPGA with AXI-Stream as I/O protocol.}
 
                     \ifnum\resShowWorkExperienceDetails>1
@@ -279,8 +307,8 @@
 
                 \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Enabled Continuous Integration for automatic testing, and cross-platform support using CMake.}
-                
-                    \ifx\resVersion\resVersionOptionSoftware
+
+                    \ifnum\resShowSoftware=1
                         \resumeSubItem{Provided customers technical support for integrating this project into their applications.}
                     \fi
                 \fi
@@ -308,6 +336,7 @@
             }
         \resumeItemListEnd
 
+    \ifnum\resCropDueToPageLimit=0
     \resumeCompanyLine{Fudan University}{Shanghai, China}
         \iffalse
             \resumePositionLine{Teaching Assistant}{10/2016 -- 1/2017}
@@ -327,13 +356,14 @@
                 \resumeSubItem{Employed Kinect API and OpenCV to develop NUI data interface for direct PCL-compatible data capture.}
             }
         \resumeItemListEnd
+    \fi
 \resumeSubHeadingListEnd
 
 %--------SKILLS------------
 \if1\resShowSkillsAndAbilities
     \newcommand{\resumeSkillItem}[2]{\item{\textbf{#1}{: #2}}}
 
-    \ifx\resVersion\resVersionOptionSoftware
+    \ifnum\resShowHardware=0
         \section{Software Skills \& Abilities}
     \else
         \section{Skills \& Abilities}
