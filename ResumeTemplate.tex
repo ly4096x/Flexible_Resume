@@ -1,74 +1,31 @@
-\def\resPresetFormatOnePage{OnePage}
-\def\resPresetFormatTwoPage{TwoPage}
-\def\resPresetFormatNotForWork{NotForWork}
-\def\resPresetFormatCustom{Custom}
+%= set derivedShowSoftware = (VERSION != 'Hardware')
+%= set derivedShowHardware = (VERSION != 'Software')
 
-\def\resVersionOptionSoftware{Software}
-\def\resVersionOptionHardware{Hardware}
-\def\resVersionOptionSoftAndHardware{SoftAndHardware}
+%-------------------------------------------------------------------
+% Control variables:
+%
+% derivedShowSoftware        = \VAR{derivedShowSoftware}
+% derivedShowHardware        = \VAR{derivedShowHardware}
+% VERSION                    = \VAR{VERSION}
+% PRESET                     = \VAR{PRESET}
+% ShowProjectFootNote        = \VAR{ShowProjectFootNote}
+% MyEmail                    = \VAR{MyEmail}
+% MyPhone                    = \VAR{MyPhone}
+% MyAddress                  = \VAR{MyAddress}
+% ShowPersonalContact        = \VAR{ShowPersonalContact}
+% ShowUrls                   = \VAR{ShowUrls}
+% ShowTopBanner              = \VAR{ShowTopBanner}
+% ShowTechnicalRange         = \VAR{ShowTechnicalRange}
+% ShowEducationDetails       = \VAR{ShowEducationDetails}
+% ShowWorkExperienceDetails  = \VAR{ShowWorkExperienceDetails}
+% ShowSkillsAndAbilities     = \VAR{ShowSkillsAndAbilities}
+% ShowHonorsAndAwards        = \VAR{ShowHonorsAndAwards}
+% ShowHonorsAndAwardsDetails = \VAR{ShowHonorsAndAwardsDetails}
+% ShowProjects               = \VAR{ShowProjects}
+% ShowProjectsDetails        = \VAR{ShowProjectsDetails}
+% CropDueToPageLimit         = \VAR{CropDueToPageLimit}
+%-------------------------------------------------------------------
 
-\ifdefined\resVersion\else
-    \input{Config.tex}
-\fi
-
-\ifx\resVersion\resVersionOptionSoftware
-    \def\resShowSoftware{1}
-    \def\resShowHardware{0}
-\fi\ifx\resVersion\resVersionOptionSoftAndHardware
-    \def\resShowSoftware{1}
-    \def\resShowHardware{1}
-\fi
-
-\ifx\resPresetFormat\resPresetFormatOnePage
-    \def\resShowUrls{1}
-    \def\resShowPersonalContact{1}
-    \def\resShowTopBanner{1}
-    \def\resShowTechnicalRange{0}
-    \ifx\resVersion\resVersionOptionSoftAndHardware
-        \def\resShowEducationDetails{0}
-    \else
-        \def\resShowEducationDetails{1}
-    \fi
-    \def\resShowWorkExperienceDetails{1} % [0-2]
-    \def\resShowSkillsAndAbilities{1}
-    \def\resShowHonorsAndAwards{0}
-    \def\resShowHonorsAndAwardsDetails{0} % [0-2]
-    \def\resShowProjects{0}
-    \def\resShowProjectsDetails{1} % [0-1]
-    \def\resCropDueToPageLimit{0}
-\fi\ifx\resPresetFormat\resPresetFormatTwoPage
-    \def\resShowUrls{1}
-    \def\resShowPersonalContact{1}
-    \def\resShowTopBanner{1}
-    \def\resShowTechnicalRange{0}
-    \def\resShowEducationDetails{1}
-    \def\resShowWorkExperienceDetails{2} % [0-2]
-    \def\resShowSkillsAndAbilities{1}
-    \def\resShowHonorsAndAwards{1}
-    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
-    \def\resShowProjects{1}
-    \def\resShowProjectsDetails{1} % [0-1]
-    \ifx\resVersion\resVersionOptionSoftAndHardware
-        \def\resCropDueToPageLimit{1}
-    \else
-        \def\resCropDueToPageLimit{0}
-    \fi
-\fi\ifx\resPresetFormat\resPresetFormatNotForWork
-    \def\resShowUrls{1}
-    \def\resShowPersonalContact{0}
-    \def\resShowTopBanner{0}
-    \def\resShowTechnicalRange{0}
-    \def\resShowEducationDetails{1}
-    \def\resShowWorkExperienceDetails{2} % [0-2]
-    \def\resShowSkillsAndAbilities{1}
-    \def\resShowHonorsAndAwards{1}
-    \def\resShowHonorsAndAwardsDetails{2} % [0-2]
-    \def\resShowProjects{1}
-    \def\resShowProjectsDetails{1} % [0-1]
-    \def\resCropDueToPageLimit{0}
-\fi
-
-%---------------------------------------------------------
 \documentclass[letterpaper,11pt]{article}
 
 \usepackage{latexsym}
@@ -92,7 +49,9 @@
 \fancyhf{} % clear all header and footer fields
 \setlength\footskip{1.1cm}
 \fancyfoot[R]{\small{Page\ \thepage\ of \pageref{LastPage}}\hspace{-10.5em}}
-\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with my own project \href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Flexible Resume}}. VERSION=\resVersion\ PRESET=\resPresetFormat}}}
+%= if ShowProjectFootNote
+\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with my own project \href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Flexible Resume}}. VERSION=\VAR{VERSION}\ PRESET=\VAR{PRESET}}}}
+%= endif
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
@@ -107,7 +66,7 @@
 
 % Sections formatting
 \titleformat{\section}{
-  \vspace{-8pt}\scshape\large
+    \vspace{-8pt}\scshape\large
 }{}{0em}{}[\color{black}\titlerule \vspace{-1ex}]
 
 %-------------------------
@@ -119,7 +78,7 @@
     \vspace{-1ex}
 }
 
-\newcommand{\resumeSubItem}[1]{{\item #1}}
+\newcommand{\resumeSubItem}[1]{\item\relax #1}
 
 %\newcommand{\resumeListItem}[2]{\resumeItem{#1}{#2}\vspace{-2ex}}
 
@@ -157,56 +116,56 @@
 {
     \raggedright
     \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
-        \textbf{{\Large Yang Liu}} & Email: \href{mailto:\resMyEmail}{\resMyEmail}\\
-        \if1\resShowPersonalContact
-            {Phone: \resMyPhone} & {Address: \resMyAddress} \\
-        \fi
-        \if1\resShowUrls
+        \textbf{{\Large Yang Liu}} & Email: \href{mailto:\VAR{MyEmail}}{\VAR{MyEmail}}\\
+        %= if ShowPersonalContact
+            {Phone: \VAR{MyPhone}} & {Address: \VAR{MyAddress}} \\
+        %= endif
+        %= if ShowUrls
             \url{https://www.linkedin.com/in/ly4096x/} & \url{https://github.com/ly4096x} \\
-        \fi
+        %= endif
     \end{tabular*}
 
-    \if1\resShowTopBanner
+    %= if ShowTopBanner
         \par\vspace{3pt}
         \framebox[\textwidth][l]{
             \textbf{Looking for a full-time position starting 7/2021 or an intern position starting 1/2021.}
         }
         \vspace{-13pt}
-    \fi
+    %= endif
     \vspace{-2pt}
 }
 
 %-----------TECHNICAL RANGE-----------------
-\if1\resShowTechnicalRange
-    \ifx\resVersion\resVersionOptionSoftware
+%= if ShowTechnicalRange
+    %= if VERSION == 'Software'
         \section{Technical Range (Software Only)}
             \includegraphics[width=\textwidth, trim={150 0 150 140},clip]{CapabilitiesRange.jpg}
-    \fi
-    \ifx\resVersion\resVersionOptionHardware
+    %= elif VERSION == 'Hardware'
         \section{Technical Range (Hardware Only)}
             \includegraphics[width=\textwidth, trim={150 140 150 0},clip]{CapabilitiesRange.jpg}
-    \fi
-    \ifx\resVersion\resVersionOptionSoftAndHardware
+    %= elif VERSION == 'SoftAndHardware'
         \section{Technical Range}
             \includegraphics[width=\textwidth, trim={150 140 150 0},clip]{CapabilitiesRange.jpg}
-    \fi
+    %= else
+        \VAR{ 'undefined version' / 0 }
+    %= endif
     \vspace{-4.5ex}
-\fi
+%= endif
 
 %-----------EDUCATION-----------------
 \newcommand\resumeEducationDetailsList[1]{
-    \if1\resShowEducationDetails
+    %= if ShowEducationDetails
         \begin{itemize}[leftmargin=*,labelindent=0.5em,label={-},topsep=0.3ex,itemsep=0ex,partopsep=0pt,parsep=0pt]
             \small{#1}
         \end{itemize}\vspace{-1ex}
-    \fi
+    %= endif
 }
 \section{Education}
 \resumeSubHeadingListStart
     \resumeCompanyLine{New York University}{New York, USA}
     \resumePositionLine{M.S. in Electrical and Computer Engineering; CGPA: 4.0/4.0}{9/2019 -- 5/2021}
     \resumeEducationDetailsList{
-        \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating Systems, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded System}
+        \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating Systems, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded Systems, Linear System, Foundation of Robotics, DSP Lab}
     }
 
     \resumeCompanyLine{Fudan University}{Shanghai, China}
@@ -218,51 +177,52 @@
 
 %-----------EXPERIENCE-----------------
 \newcommand\resumeWorkExperienceDetailsList[1]{
-\ifnum\resShowWorkExperienceDetails>0
+%= if ShowWorkExperienceDetails > 0
     \vspace{0.3ex}
     \resumeSubItemListStart
         \setlength\itemsep{0.3ex}
         #1
     \resumeSubItemListEnd
-\fi
+%= endif
 }
 \section{Experience}
 \resumeSubHeadingListStart
     \resumeCompanyLine{New York University}{New York, USA}
-        \resumePositionLine{Research Assistant}{1/2020 -- 5/2020, 8/2020 -- Now}
+        \resumePositionLine{Research Assistant}{1/2020 -- 5/2020, 8/2020 -- Present}
         \resumeItemListStart
             \resumeItem{Robot Car Auto Navigation}{Using reinforcement learning to navigate with input data from various sensors.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Investigated code structure of \href{https://github.com/alexsax/midlevel-reps}{\underline{alexsax/midlevel-reps}} with profiler.}
-                \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
 
-                \ifnum\resShowSoftware=1
-                    \ifnum\resShowWorkExperienceDetails>1
-                        \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
-                    \fi
-                \fi
+                %= if derivedShowSoftware and ShowWorkExperienceDetails > 1
+                \resumeSubItem{Modified and tested PPOReplay and DQN algorithm on Gibson dataset with FAIR Habitat-Sim.}
+                \resumeSubItem{Collected GPU utilization stats and applied optimizations accordingly.}
+                %= endif
             }
 
             \resumeItem{Anomoly over Network}{Detecting malicious hardware based on side-channel features.}
             \resumeWorkExperienceDetailsList{
-                \resumeSubItem{[WIP] Transplant FreeRTOS to a customized CPU architecture under GEM5 simulator.}
-                \resumeSubItem{Modified firmware of powering module to achieve 200x higher power sampling rate over WiFi.}
-
-                \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Set up Raspberry Pi as a WiFi router, along with a programmable switch to create a private network for testing.}
-                \fi
+                \resumeSubItem{{[WIP]} Transplant FreeRTOS to a customized CPU architecture under GEM5 simulator.}
+
+                %= if ShowWorkExperienceDetails > 1
+                \resumeSubItem{Modified firmware of powering module to achieve 200x higher power sampling rate over WiFi.}
+                %= endif
             }
         \resumeItemListEnd
 
-        \resumePositionLine{Teaching Assistant}{1/2020 -- 5/2020, 9/2020 -- Now}
+        \resumePositionLine{Teaching Assistant}{1/2020 -- 5/2020, 9/2020 -- Present}
         \resumeItemListStart
-            \resumeItem{Internet Architecture and Protocols}{Teaching theories and experiments of modern internet.}
+            \resumeItem{Internet Architecture and Protocols}{}
             \resumeWorkExperienceDetailsList{
-                \resumeSubItem{Topics include TCP/IP, bridge STP, BGP/OSPF routing, NAT, multicast, etc.}
+                \resumeSubItem{Helped students understand internet concepts through hands-on experiments.}
+                \resumeSubItem{Summarized students feedback and proposed key points to professor as references.}
             }
-            \resumeItem{Operating Systems}{Help students understand OS internals and do homeworks.}
+            \resumeItem{Operating Systems}{}
             \resumeWorkExperienceDetailsList{
-                \resumeSubItem{Topics include scheduling, memory management, IPC, I/O control, etc.}
+                \resumeSubItem{Answered students' questions to help them understand OS internals.}
+                \resumeSubItem{Developed an automatic grading system using Bash script and runtime tracing utilities.}
+                \resumeSubItem{Collaborated with professor and another TA to standardize homework submissions.}
             }
         \resumeItemListEnd
 
@@ -270,29 +230,30 @@
         \resumePositionLine{Independent Researcher and Developer}{7/2018 -- 8/2019}
         \resumeItemListStart
             \resumeItem{7-DOF Camera Tracking System}{Full freedom camera tracking solution for TV studios. Patent pending.
-                \iffalse\ifnum\resShowSoftware=1\ifnum\resShowWorkExperienceDetails>0
+                %= if False and derivedShowSoftware and ShowWorkExperienceDetails > 0
                     Hardware work is not shown in this resume.
-                \fi\fi\fi
+                %= endif
             }
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Invented a novel sensor fusion algorithm to achieve smooth and precise tracking ($\pm$0.1\degree\ rotation, $\pm$2mm position).}
                 \resumeSubItem{Implemented the SoC firmware with RTOS, LwIP Ethernet communication, and full DMA I/O drivers.}
 
-                \ifnum\resShowSoftware=1
+                %= if derivedShowSoftware
                     \resumeSubItem{Employed UnrealEngine for a visualized testing frontend through RESTful API.}
-                \fi
+                %= endif
 
                 \resumeSubItem{Used Eigen3 library for all linear algebra calculations.}
 
-                \ifnum\resShowHardware=1
+                %= if derivedShowHardware
                     \resumeSubItem{Implemented DSP logic on FPGA with AXI-Stream as I/O protocol.}
 
-                    \ifnum\resShowWorkExperienceDetails>1
+                    %= if ShowWorkExperienceDetails > 1
                         \resumeSubItem{Designed an array of photoelectric sensors to capture laser signals.}
-                    \fi
+                    %= endif
 
                     \resumeSubItem{Created a 4-layer PCB with Altium Designer to integrate FPGA, STM32, power module and Ethernet.}
-                \fi
+                %= endif
+                \resumeSubItem{Succeesfully enhanced the whole tracking system performance and greatly simplified field installation.}
             }
         \resumeItemListEnd
 
@@ -305,13 +266,13 @@
                 \resumeSubItem{Designed a multi-threaded framework using C\raisebox{0.2ex}{++}14, achieved 97\% CPU efficiency boost than previous prototype.}
                 \resumeSubItem{Implemented a pipelined data flow, allowing modules to run concurrently and don't need to worry about thread safety.}
 
-                \ifnum\resShowWorkExperienceDetails>1
+                %= if ShowWorkExperienceDetails > 1
                 \resumeSubItem{Enabled Continuous Integration for automatic testing, and cross-platform support using CMake.}
 
-                    \ifnum\resShowSoftware=1
+                    %= if derivedShowSoftware
                         \resumeSubItem{Provided customers technical support for integrating this project into their applications.}
-                    \fi
-                \fi
+                    %= endif
+                %= endif
             }
 
             \resumeItem{VM-like System Based on Docker}
@@ -319,35 +280,24 @@
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Granted containers NET\_ADMIN privilege and ran DHCPcd inside to directly expose them on company LAN.}
 
-                \ifnum\resShowWorkExperienceDetails>1
+                %= if ShowWorkExperienceDetails > 1
                 \resumeSubItem{Set up SSHd and X11 environment for containers, allowing X-Forwarding.}
-                \fi
+                %= endif
             }
             \resumeItem{Ethernet Driver Development}
             {Developing a Windows kernel-mode NDIS driver for a pre-silicon SoC.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Compared features of other commercial drivers, helped customers reduce development cost by \$300K.}
-
-                \ifnum\resShowWorkExperienceDetails>1
                 \resumeSubItem{Proposed, negotiated and settled the High Level Design document with customers.}
-                \fi
 
+                %= if ShowWorkExperienceDetails > 1
                 \resumeSubItem{Involved in developing a prototype NDIS driver.}
+                %= endif
             }
         \resumeItemListEnd
 
-    \ifnum\resCropDueToPageLimit=0
+    %= if False
     \resumeCompanyLine{Fudan University}{Shanghai, China}
-        \iffalse
-            \resumePositionLine{Teaching Assistant}{10/2016 -- 1/2017}
-            \resumeItemListStart
-                \resumeItem{Python Programming}{}
-                \resumeWorkExperienceDetailsList{
-                    \resumeSubItem{Taught Python. Helped students debugging. Created exam papers.}
-                }
-            \resumeItemListEnd
-        \fi
-
         \resumePositionLine{Research Assistant}{4/2016 -- 6/2016}
         \resumeItemListStart
             \resumeItem{Robust Real-Time Human Perception with Depth Camera}{Paper published on ECAI 2016: 304-310}
@@ -356,74 +306,99 @@
                 \resumeSubItem{Employed Kinect API and OpenCV to develop NUI data interface for direct PCL-compatible data capture.}
             }
         \resumeItemListEnd
-    \fi
+
+        \resumePositionLine{Teaching Assistant}{10/2016 -- 1/2017}
+        \resumeItemListStart
+            \resumeItem{Python Programming}{}
+            \resumeWorkExperienceDetailsList{
+                \resumeSubItem{Taught Python. Helped students debugging to make them understand what went wrong. Created and graded exam papers.}
+            }
+        \resumeItemListEnd
+    %= endif
 \resumeSubHeadingListEnd
 
+%-------PUBLICATIONS-------
+%= if ShowPublications
+\newcommand{\resumePublicationsItem}[2]{
+    \vspace{-0.7ex}
+    \item{
+        \vspace{0.5ex}
+        \small{\textbf{#2} \hfill {#1}}\\
+        \vspace{-0.6ex}
+    }
+    \vspace{-4ex}
+}
+\section{Publications}{
+    \resumeSubHeadingListStart
+        \resumePublicationsItem{DAC 2021}
+        {A Golden-Free Approach to Detect Big Hack Trojans in COTS Multi-PCB Systems}
+
+        \resumePublicationsItem{ECAI 2016: 304-310}
+        {Robust Real-Time Human Perception with Depth Camera}
+
+    \vspace{0.5ex}
+    \resumeSubHeadingListEnd
+}
+%= endif
+
 %--------SKILLS------------
-\if1\resShowSkillsAndAbilities
+%= if ShowSkillsAndAbilities
     \newcommand{\resumeSkillItem}[2]{\item{\textbf{#1}{: #2}}}
 
-    \ifnum\resShowHardware=0
+    %= if not derivedShowHardware
         \section{Software Skills \& Abilities}
-    \else
+    %= else
         \section{Skills \& Abilities}
-    \fi
+    %= endif
     \resumeSubHeadingListStart
         \setlength\topsep{0ex}\setlength\parskip{0ex}\setlength\itemsep{0.2ex}
+        \vspace{-0.2ex}
 
-        \iffalse
-            \vspace{-0.8ex}\item{
-                \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
-                    \textbf{Languages}: C (7y) C\raisebox{0.2ex}{++} (10y) Rust (\textless1y) Python3 (6y) JavaScript (5y) & \textbf{Main Language}: C\raisebox{0.2ex}{++} \hspace{7em} \\
-                \end{tabular*}
-            }
-            \vspace{-4.4ex}
-        \else
-            \vspace{-0.2ex}
-
-            % reference date: 2020/8
-            \resumeSkillItem{Languages}{C(7y) C\raisebox{0.2ex}{++}(10y) Rust(\textless1y) Python3(6y) JavaScript(6y) CMake(3y) Verilog(5y) SystemVerilog(4y)}
-
-            \ifx\resVersion\resVersionOptionSoftAndHardware
-                \resumeSkillItem{Hardware}{Xilinx ARTIX-7/ZYNQ-7000, STM32F1/F4/F7, ESP8266, Arduino, Raspberry Pi}
-                \resumeSkillItem{PCB Design}{Altium Designer}
-            \fi
-        \fi
-
+        % reference date: 2021
+        \resumeSkillItem{Languages}{C(8y) C\raisebox{0.2ex}{++}(11y) Rust(1y) Python3(7y) JavaScript(7y) CMake(4y) Verilog(6y) SystemVerilog(5y)}
         \resumeSkillItem{Networking}{OpenWRT and Linux-based policy routing, iptables/nftables, bridge, VLAN, NAT, etc}
+
+        %= if derivedShowHardware
+            \resumeSkillItem{Hardware}{Xilinx ARTIX-7/ZYNQ-7000, STM32F1/F4/F7, ESP8266, Arduino, Raspberry Pi, etc}
+            \resumeSkillItem{PCB Design}{Altium Designer}
+        %= endif
+        \resumeSkillItem{Human Languages}{English, Chinese(Simplified/Traditional)}
     \vspace{-1ex}
     \resumeSubHeadingListEnd
     %\vspace{-8pt}
-\fi
+%= endif
 
 %--------AWARDS------------
 \newcommand{\resumeAwardItem}[5]{
     \vspace{-0.7ex}\item{
-        \ifnum\resShowHonorsAndAwardsDetails>0
+        %= if ShowHonorsAndAwardsDetails > 0
             \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
                 \textbf{#2} & {#1} \\
                 {\it\small{#4}} & \small{#3} \\
             \end{tabular*}
-        \else
+        %= else
             \begin{tabular*}{\textwidth}[t]{p{10.5em}l@{\extracolsep{\fill}}r}
                 {#1} & {#2} & {#3} \\
             \end{tabular*}
-        \fi
+        %= endif
     }
-    \if0\resShowHonorsAndAwardsDetails
+    %= if ShowHonorsAndAwardsDetails == 0
         \vspace{-2.3ex}
-    \fi
-    \ifempty{#5}\else\ifnum\resShowHonorsAndAwardsDetails>1
+    %= endif
+    %= if ShowHonorsAndAwardsDetails > 1
+    \ifempty{#5}\else
         \vspace{-2.5ex}
         \begin{itemize}[leftmargin=*,labelindent=1.5em,label={-}]
             \setlength\itemsep{0pt}
             \small{#5}
         \end{itemize}
-    \fi\fi
+    \fi
+    %= endif
     \vspace{-1.7ex}
 }
 
-\if1\resShowHonorsAndAwards\section{Honors \& Awards}{
+%= if ShowHonorsAndAwards
+\section{Honors \& Awards}{
     \resumeSubHeadingListStart
         \resumeAwardItem{1\textsuperscript{st} Prize (3.7\%)}{National Undergraduate Electronic Design Contest (Embedded System)}{7/2016}
         {We developed a system that reconstructs 3D scene with UAV and real-time keypoint tracking.}{
@@ -448,7 +423,7 @@
             \resumeSubItem{Implemented high speed LVDS communication with DAC chip.}
         }
 
-        \iffalse
+        %= if False
             \resumeAwardItem{Honorable Mention}{Shanghai Undergraduate Electronic Design Contest}{8/2016}
             {Design an UAV that can automatically fly and land on each given landmark without GPS.}{
                 \resumeSubItem{Implemented an optical flow positioning system with OpenCV for indoor navigation.}
@@ -459,46 +434,46 @@
                 \resumeSubItem{Acquired and processed the data for the problem from public internet.}
                 \resumeSubItem{Involved in designing the math model.}
             }
-        \fi
+        %= endif
 
         \resumeAwardItem{Best Volunteer}{Fudan Youth Volunteers Association \& Fudan PCService Volunteering Group}{5/2017}
         {Resolve computer problems with professional knowledge for the university community.}{
-            \resumeSubItem{Resolved over 1000 service requests.}
+            \resumeSubItem{Resolved over 1000 service requests personally.}
             \resumeSubItem{Services include network problem diagnosing, OS repairing, software installing, data recovery, etc.}
         }
     \resumeSubHeadingListEnd
 }
-\fi
+%= endif
 
 %--------SELECTED PROJECTS------------
-\if1\resShowProjects
+%= if ShowProjects
 \newcommand{\resumeProjectsItem}[5]{
     \vspace{-0.7ex}
     \item{
-        \ifnum\resShowProjectsDetails>0
+        %= if ShowProjectsDetails > 0
             \vspace{0.5ex}
             \textbf{#2} \hfill {#1}\\
             \small{#4} \hfill \small{#3}\\
             \vspace{-0.6ex}
-        \else
+        %= else
             \begin{tabular*}{\textwidth}[t]{p{10.5em}l@{\extracolsep{\fill}}r}
                 {#1} & {#2} & {#3} \\
             \end{tabular*}
             %#2 \hfill \textit{#1} \hspace{2em} #3\\
             \vspace{-0.8ex}
-        \fi
+        %= endif
     }
     \vspace{-3.3ex}
 }
 \section{Selected Projects}{
     \resumeSubHeadingListStart
         \resumeProjectsItem{Finished, Active}{Flexible Resume}{7/2020}
-        {A \LaTeX-based flexible resume with configurable options. [\href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Link}}]}{}
+        {A \LaTeX-based flexible resume generator with configurable options using Jinja2. [\href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Link}}]}{}
 
-        \resumeProjectsItem{In-Progress}{Archive and Visualization of Daily AVALON Apartment Prices}{6/2020 -- Now}
+        \resumeProjectsItem{In-Progress}{Archive and Visualization of Daily AVALON Apartment Prices}{6/2020 -- Present}
         {Capture data from website using Selenium and store with SQLite. Visualize with HTML/CSS.}{}
 
-        \resumeProjectsItem{Finished, End-of-Life}{Automatic Network Configuration for \textit{High Speed Network} Labs}{4/2020}
+        \resumeProjectsItem{Finished, End-of-Life}{Automatic Networks Configuration for \textit{High Speed Network} Labs}{4/2020}
         {Manage a group of containers nice and tidy with docker-compose. [\href{https://github.com/ly4096x/ECE6383\_HSN\_Lab4\_Network}{\underline{Link}}]}{}
 
         \resumeProjectsItem{Finished, Active}{KVM Virtual Machines with PCIe-Passthrough}{4/2020}
@@ -510,20 +485,27 @@
         \resumeProjectsItem{Finished, End-of-Life}{Autonomous WiFi Tracing Robot Car with PID-Controlled Motors}{12/2019}
         {A self-driving car with obstacle avoidance and constant moving speed. [\href{https://github.com/ly4096x/RTES\_STM32F4}{\underline{Link}}]}{}
 
+        \resumeProjectsItem{In-Progress}{High Efficiency RTOS Framework}{11/2019 -- Present}
+        {Avoiding spinlocks by using interrupt and DMA driven drivers.}{}
+
         \resumeProjectsItem{Finished, Active}{Multi-WiFi to Mitigate Security Risk from IoT Devices}{10/2019}
         {Create multiple WiFi from a router to restrict access to main network from a single IoT device.}{}
 
         \resumeProjectsItem{Finished, End-of-Life}{DIY UAV Based on ArduPilot}{10/2014}
         {Designed, assembled and tested several UAVs, all by myself alone from scratch.}{}
 
+        %= if VERSION == 'Software'
+        \resumeProjectsItem{Finished}{IoT CNC Machine with Laser Engraver}{11/2017 -- 2/2018}
+        {Controlled with GRBL. Added an ESP8266 module to make it IoT. 90{\textmu}m precision when carving PCB.}{}
+
+            %= if PRESET != 'TwoPages'
         \resumeProjectsItem{Finished, Active}{Software Router and Server with Linux}{10/2013}
         {Full-fledged router system with advanced policy routing and complex network structures.}{}
-
-        \resumeProjectsItem{Finished}{IoT CNC Machine with Laser Head}{11/2017 -- 2/2018}
-        {Controlled with GRBL. Added an ESP8266 module to make it IoT. 90{\textmu}m precision when carving PCB.}{}
+            %= endif
+        %= endif
     \resumeSubHeadingListEnd
 }
-\fi
+%= endif
 
 %-------------------------------------------
 \end{document}

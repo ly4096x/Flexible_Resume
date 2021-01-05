@@ -15,7 +15,7 @@ docker build -t latex .
 To build PDFs with default configurations:
 
 ```
-docker run --rm -i --user=`id -u`:`id -g` -v "$PWD":/data latex bash ./GenerateAll.sh
+docker run --rm -i --user=`id -u`:`id -g` -v "$PWD":/data latex python3.8
 ```
 
 To build a PDF with `Config.tex`:
