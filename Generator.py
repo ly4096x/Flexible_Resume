@@ -1,6 +1,7 @@
 import jinja2, os, sys
+from datetime import datetime
 
-def generate_defaults(template, contact_info, build=False):
+def generate_defaults(template, contact_info, output_dir, build=False):
     version = 'Software'
     preset = 'OnePage'
     out = template.render(
@@ -24,11 +25,11 @@ def generate_defaults(template, contact_info, build=False):
         ShowProjectsDetails        = 1,
         CropDueToPageLimit         = False,
     )
-    with open(f'output/{version}_{preset}.tex', 'w') as f:
+    with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
         f.write(out)
     if build:
         for i in range(2):
-            os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+            os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
 
     version = 'Software'
     preset = 'TwoPages'
@@ -53,11 +54,11 @@ def generate_defaults(template, contact_info, build=False):
         ShowProjectsDetails        = 1,
         CropDueToPageLimit         = False,
     )
-    with open(f'output/{version}_{preset}.tex', 'w') as f:
+    with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
         f.write(out)
     if build:
         for i in range(2):
-            os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+            os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
 
     version = 'SoftAndHardware'
     preset = 'OnePage'
@@ -82,11 +83,11 @@ def generate_defaults(template, contact_info, build=False):
         ShowProjectsDetails        = 1,
         CropDueToPageLimit         = False,
     )
-    with open(f'output/{version}_{preset}.tex', 'w') as f:
+    with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
         f.write(out)
     if build:
         for i in range(2):
-            os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+            os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
 
     version = 'SoftAndHardware'
     preset = 'TwoPages'
@@ -111,11 +112,11 @@ def generate_defaults(template, contact_info, build=False):
         ShowProjectsDetails        = 1,
         CropDueToPageLimit         = True,
     )
-    with open(f'output/{version}_{preset}.tex', 'w') as f:
+    with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
         f.write(out)
     if build:
         for i in range(2):
-            os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+            os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
 
     version = 'SoftAndHardware'
     preset = 'NotForWork'
@@ -140,11 +141,11 @@ def generate_defaults(template, contact_info, build=False):
         ShowProjectsDetails        = 1,
         CropDueToPageLimit         = False,
     )
-    with open(f'output/{version}_{preset}.tex', 'w') as f:
+    with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
         f.write(out)
     if build:
         for i in range(2):
-            os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+            os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
 
 ##################################################################
 
@@ -173,6 +174,12 @@ if __name__ == '__main__':
     }
 
     build = (len(sys.argv) >= 2)
+    if len(sys.argv) >= 3:
+        contact_info['email'] = sys.argv[2]
+
+    output_dir = f"output/{contact_info['email']}-{datetime.now().strftime('%Y%m%d')}"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     if False: # custom format generation
         version = 'SoftAndHardware'
@@ -198,10 +205,10 @@ if __name__ == '__main__':
             ShowProjectsDetails        = 2,
             CropDueToPageLimit         = False,
         )
-        with open(f'output/{version}_{preset}.tex', 'w') as f:
+        with open(f'{output_dir}/{version}_{preset}.tex', 'w') as f:
             f.write(out)
         if build:
             for i in range(2):
-                os.system(f'pdflatex -output-directory=output -jobname=\'Resume_{version}_{preset}\' output/{version}_{preset}.tex')
+                os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
     else:
-        generate_defaults(template, contact_info, build=build)
+        generate_defaults(template, contact_info, output_dir, build=build)
