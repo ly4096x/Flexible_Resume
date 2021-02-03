@@ -212,3 +212,11 @@ if __name__ == '__main__':
                 os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
     else:
         generate_defaults(template, contact_info, output_dir, build=build)
+
+    # cleanup
+    _, _, fns = next(os.walk(output_dir))
+    for fn in fns:
+        ext = fn.split('.')[-1]
+        if ext != 'pdf':
+            print(f'Removing "{output_dir}/{fn}"')
+            os.remove(f'{output_dir}/{fn}')
