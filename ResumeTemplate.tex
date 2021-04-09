@@ -50,7 +50,7 @@
 \setlength\footskip{1.1cm}
 \fancyfoot[R]{\small{Page\ \thepage\ of \pageref{LastPage}}\hspace{-10.5em}}
 %= if ShowProjectFootNote
-\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with my own project \href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Flexible Resume}}. VERSION=\VAR{VERSION}\ PRESET=\VAR{PRESET}}}}
+\fancyfoot[L]{\hspace{-3em}\textcolor{Gray}{\small{Generated with my own project \href{https://github.com/ly4096x/Flexible\_Resume}{\underline{Flexible Resume}}. PRESET=\VAR{VERSION}\_\VAR{PRESET}\ VERSION=\VAR{DATE}}}}
 %= endif
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -163,7 +163,7 @@
 \section{Education}
 \resumeSubHeadingListStart
     \resumeCompanyLine{New York University}{New York, USA}
-    \resumePositionLine{M.S. in Electrical and Computer Engineering; CGPA: 4.0/4.0}{9/2019 -- 5/2021}
+    \resumePositionLine{M.S. in Electrical and Computer Engineering; CGPA: 3.8/4.0}{9/2019 -- 5/2021}
     \resumeEducationDetailsList{
         \resumeSubItem{\textbf{Relavant Courses: }Machine Learning, Operating Systems, High Speed Network, Internet Architecture and Protocols, Computer System Architecture, Real-Time Embedded Systems, Linear System, Foundation of Robotics, DSP Lab}
     }
@@ -203,10 +203,11 @@
             \resumeItem{Anomoly over Network}{Detecting malicious hardware based on side-channel features.}
             \resumeWorkExperienceDetailsList{
                 \resumeSubItem{Set up Raspberry Pi as a WiFi router, along with a programmable switch to create a private network for testing.}
-                \resumeSubItem{{[WIP]} Transplant FreeRTOS to a customized CPU architecture under GEM5 simulator.}
+                \resumeSubItem{Created new Linux kernel modules (based on cpufreq\_ondemand) to emulate malicious behaviors.}
 
                 %= if ShowWorkExperienceDetails > 1
                 \resumeSubItem{Modified firmware of powering module to achieve 200x higher power sampling rate over WiFi.}
+                \resumeSubItem{{[WIP]} Transplant FreeRTOS to a customized CPU architecture under GEM5 simulator.}
                 %= endif
             }
         \resumeItemListEnd
