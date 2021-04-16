@@ -14,7 +14,7 @@
 % MyAddress                  = \VAR{MyAddress}
 % ShowPersonalContact        = \VAR{ShowPersonalContact}
 % ShowUrls                   = \VAR{ShowUrls}
-% ShowTopBanner              = \VAR{ShowTopBanner}
+% BannerMsg                  = \VAR{BannerMsg}
 % ShowTechnicalRange         = \VAR{ShowTechnicalRange}
 % ShowEducationDetails       = \VAR{ShowEducationDetails}
 % ShowWorkExperienceDetails  = \VAR{ShowWorkExperienceDetails}
@@ -125,10 +125,10 @@
         %= endif
     \end{tabular*}
 
-    %= if ShowTopBanner
+    %= if BannerMsg != ''
         \par\vspace{3pt}
         \framebox[\textwidth][l]{
-            \textbf{Looking for a full-time position starting 7/2021 or an intern position starting 1/2021.}
+            \textbf{\VAR{BannerMsg}}
         }
         \vspace{-13pt}
     %= endif

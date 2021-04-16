@@ -1,7 +1,7 @@
-import jinja2, os, sys
+import jinja2, os, sys, json
 from datetime import datetime
 
-def generate_defaults(template, contact_info, output_dir, build=False):
+def generate_defaults(template, contact_info, banner_msg, output_dir, build=False):
     version = 'Software'
     preset = 'OnePage'
     date = datetime.now().strftime('%Y%m%d')
@@ -15,7 +15,7 @@ def generate_defaults(template, contact_info, output_dir, build=False):
         MyAddress                  = contact_info['address'],
         ShowPersonalContact        = True,
         ShowUrls                   = True,
-        ShowTopBanner              = False,
+        BannerMsg                  = banner_msg,
         ShowTechnicalRange         = False,
         ShowEducationDetails       = True,
         ShowWorkExperienceDetails  = 1,
@@ -45,7 +45,7 @@ def generate_defaults(template, contact_info, output_dir, build=False):
         MyAddress                  = contact_info['address'],
         ShowPersonalContact        = True,
         ShowUrls                   = True,
-        ShowTopBanner              = False,
+        BannerMsg                  = banner_msg,
         ShowTechnicalRange         = False,
         ShowEducationDetails       = True,
         ShowWorkExperienceDetails  = 2,
@@ -75,7 +75,7 @@ def generate_defaults(template, contact_info, output_dir, build=False):
         MyAddress                  = contact_info['address'],
         ShowPersonalContact        = True,
         ShowUrls                   = True,
-        ShowTopBanner              = False,
+        BannerMsg                  = banner_msg,
         ShowTechnicalRange         = False,
         ShowEducationDetails       = False,
         ShowWorkExperienceDetails  = 1,
@@ -105,7 +105,7 @@ def generate_defaults(template, contact_info, output_dir, build=False):
         MyAddress                  = contact_info['address'],
         ShowPersonalContact        = True,
         ShowUrls                   = True,
-        ShowTopBanner              = False,
+        BannerMsg                  = '', # to prevent page overflow
         ShowTechnicalRange         = False,
         ShowEducationDetails       = True,
         ShowWorkExperienceDetails  = 2,
@@ -135,7 +135,7 @@ def generate_defaults(template, contact_info, output_dir, build=False):
         MyAddress                  = contact_info['address'],
         ShowPersonalContact        = False,
         ShowUrls                   = True,
-        ShowTopBanner              = False,
+        BannerMsg                  = banner_msg,
         ShowTechnicalRange         = False,
         ShowEducationDetails       = True,
         ShowWorkExperienceDetails  = 2,
@@ -173,15 +173,15 @@ if __name__ == '__main__':
 
     template = latex_jinja_env.get_template('ResumeTemplate.tex')
 
-    contact_info = {
-        'email': '50459973+ly4096x@users.noreply.github.com',
-        'phone': '+1-(000)-000-0000',
-        'address': '100 Anonymous St, New York, NY 10001'
-    }
+    if len(sys.argv) >= 2:
+        with open(sys.argv[1]) as f:
+            contact_info = json.load(f)
 
-    build = (len(sys.argv) >= 2)
-    if len(sys.argv) >= 3:
-        contact_info['email'] = sys.argv[2]
+    build = (len(sys.argv) >= 3)
+
+    banner_msg = ''
+    if len(sys.argv) >= 4:
+        banner_msg = sys.argv[3]
 
     output_dir = f"output/{contact_info['email']}-{datetime.now().strftime('%Y%m%d')}"
     if not os.path.exists(output_dir):
@@ -201,7 +201,7 @@ if __name__ == '__main__':
             MyAddress                  = contact_info['address'],
             ShowPersonalContact        = False,
             ShowUrls                   = True,
-            ShowTopBanner              = False,
+            BannerMsg                  = banner_msg,
             ShowTechnicalRange         = False,
             ShowEducationDetails       = True,
             ShowWorkExperienceDetails  = 2,
@@ -219,7 +219,7 @@ if __name__ == '__main__':
             for i in range(2):
                 os.system(f'pdflatex -output-directory={output_dir} -jobname=\'Resume_{version}_{preset}\' {output_dir}/{version}_{preset}.tex')
     else:
-        generate_defaults(template, contact_info, output_dir, build=build)
+        generate_defaults(template, contact_info, banner_msg, output_dir, build=build)
 
     # cleanup
     _, _, fns = next(os.walk(output_dir))
